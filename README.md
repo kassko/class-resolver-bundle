@@ -2,7 +2,6 @@ class-resolver-bundle
 ==================
 
 Bundle wich integrates class-resolver into Symfony.
-Bundle to get object with its dependencies from its class name.
 ---------------
 
 Add to your composer.json:
@@ -23,5 +22,7 @@ public function registerBundles()
     );
 }
 ```
+class-resolver allow to create object from its class name.
+
 [class-resolver documentation]()
 [Bundle documentation](src/Resources/doc/fr/documentation_fr.md)

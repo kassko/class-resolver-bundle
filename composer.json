@@ -1,11 +1,11 @@
 {
-    "name":"kko/class-resolver-bundle",
+    "name":"kassko/class-resolver-bundle",
     "description":"class-resolver integrated to Symfony.",
     "keywords":["class", "resolver", "dependency", "injection", "factory"],
     "require":{
         "php":">=5.5.0",
         "symfony/framework-bundle": "~2.5",
-        "kko/class-resolver": "dev-master"
+        "kassko/class-resolver": "dev-master"
     },
     "autoload":{
         "psr-4":{
