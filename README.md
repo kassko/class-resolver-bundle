@@ -8,7 +8,7 @@ Add to your composer.json:
 ```json
 
 "require": {
-    "kko/class-resolver-bundle": "dev-master"
+    "kassko/class-resolver-bundle": "dev-master"
 }
 
 ```
