@@ -5,7 +5,7 @@
     "require":{
         "php":">=5.5.0",
         "symfony/framework-bundle": "~2.5",
-        "kassko/class-resolver": "dev-master"
+        "kassko/class-resolver": "dev-alpha"
     },
     "autoload":{
         "psr-4":{

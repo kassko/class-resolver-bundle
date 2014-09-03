@@ -10,7 +10,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $builder = new TreeBuilder();
-        $builder->root('kko_class_resolver');
+        $builder->root('kassko_class_resolver');
         return $builder;
     }
 }
