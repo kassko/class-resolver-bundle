@@ -16,7 +16,7 @@ class KasskoClassResolverExtension extends Extension
     	$config = $this->processConfiguration(new Configuration(), $configs);
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('class_resolver.xml');
+        $loader->load('services.xml');
 
         $container->setAlias('class_resolver', new Alias('class_resolver.chain', false));
     }
