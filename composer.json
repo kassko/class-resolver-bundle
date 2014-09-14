@@ -11,10 +11,5 @@
         "psr-4":{
             "Kassko\\Bundle\\ClassResolverBundle\\": "src"
         }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.1.x-alpha"
-        }
     }
 }
