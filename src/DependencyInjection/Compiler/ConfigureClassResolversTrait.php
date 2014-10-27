@@ -10,7 +10,7 @@ trait ConfigureClassResolversTrait
     private function computeClassResolverId(array $attributes)
     {
         if (! isset($attributes['factory']) || false === $attributes['factory']) {
-            $classResolverPrototypeId = 'class_resolver.container';
+            $classResolverPrototypeId = 'class_resolver.container_aware';
         } else {
             $classResolverPrototypeId = 'class_resolver.factory';
         }

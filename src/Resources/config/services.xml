@@ -5,22 +5,27 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-    	<parameter key="class_resolver.container.class">Kassko\ClassResolver\ContainerAwareClassResolver</parameter>
+    	<parameter key="class_resolver.container_aware.class">Kassko\ClassResolver\ContainerAwareClassResolver</parameter>
         <parameter key="class_resolver.factory.class">Kassko\ClassResolver\FactoryClassResolver</parameter>
         <parameter key="class_resolver.chain.class">Kassko\ClassResolver\ClassResolverChain</parameter>
+        <parameter key="class_resolver.container.class">Kassko\ClassResolverBundle\Bridge\Adapter\ContainerAdapter</parameter>
 	</parameters>
 
     <services>
 
-        <service id="class_resolver.container" class="%class_resolver.container.class%" public="false">
+        <service id="class_resolver.container_aware" class="%class_resolver.container_aware.class%" public="false">
             <call method="setContainer">
-                 <argument type="service" id="service_container"/>
+                 <argument type="service" id="class_resolver.container"/>
             </call>
         </service>
 
         <service id="class_resolver.factory" class="%class_resolver.factory.class%" public="false"/>
 
         <service id="class_resolver.chain" class="%class_resolver.chain.class%" public="false"/>
+
+        <service id="class_resolver.container" class="%class_resolver.container.class%" public="false">
+            <argument type="service" id="service_container"/>
+        </service>
 
     </services>
 

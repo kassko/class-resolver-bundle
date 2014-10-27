@@ -1,5 +1,10 @@
 {
     "name":"kassko/class-resolver-bundle",
+    "authors": [
+        {
+            "name":"Kassko"
+        }
+    ],
     "description":"class-resolver integrated to Symfony.",
     "keywords":["class", "resolver", "dependency", "injection", "factory"],
     "require":{
