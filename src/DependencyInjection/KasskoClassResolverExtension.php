@@ -8,7 +8,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Kassko\Common\Registry;
 
 class KasskoClassResolverExtension extends Extension
 {
@@ -21,8 +20,7 @@ class KasskoClassResolverExtension extends Extension
 
         $container->setAlias('class_resolver', new Alias('class_resolver.chain', false));
 
-        $bridge = Registry::getInstance()->getBridge();
         $containerAdapterDef = $container->getDefinition('class_resolver.container');
-        $containerAdapterDef->setClass($bridge->getContainerAdapterClass());
+        $containerAdapterDef->setClass($config['container_adapter_class']);
     }
 }

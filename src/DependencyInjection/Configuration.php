@@ -10,7 +10,12 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $builder = new TreeBuilder();
-        $builder->root('kassko_class_resolver');
+        $rootNode = $builder->root('kassko_class_resolver');
+
+        $rootNode
+            ->children()
+            ->scalarNode('container_adapter_class')->defaultValue('Kassko\SymfonyBridge\Adapter\ContainerAdapter')
+        ->end();
 
         return $builder;
     }
