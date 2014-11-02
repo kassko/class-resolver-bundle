@@ -10,7 +10,8 @@
     "require":{
         "php":">=5.5.0",
         "symfony/framework-bundle": "~2.5",
-        "kassko/class-resolver": "~0.1@alpha"
+        "kassko/class-resolver": "~0.1@alpha",
+        "kassko/common": "~0.1"
     },
     "autoload":{
         "psr-4":{
