@@ -11,6 +11,7 @@ class Configuration implements ConfigurationInterface
     {
         $builder = new TreeBuilder();
         $builder->root('kassko_class_resolver');
+
         return $builder;
     }
 }
