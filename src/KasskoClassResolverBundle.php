@@ -9,10 +9,10 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class KasskoClassResolverBundle extends Bundle
 {
-	/**
+    /**
      * {@inheritdoc}
      */
-	public function build(ContainerBuilder $container)
+    public function build(ContainerBuilder $container)
     {
         parent::build($container);
 

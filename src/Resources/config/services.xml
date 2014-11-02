@@ -8,7 +8,7 @@
     	<parameter key="class_resolver.container_aware.class">Kassko\ClassResolver\ContainerAwareClassResolver</parameter>
         <parameter key="class_resolver.factory.class">Kassko\ClassResolver\FactoryClassResolver</parameter>
         <parameter key="class_resolver.chain.class">Kassko\ClassResolver\ClassResolverChain</parameter>
-        <parameter key="class_resolver.container.class">Kassko\ClassResolverBundle\Bridge\Adapter\ContainerAdapter</parameter>
+        <parameter key="class_resolver.container.class">Kassko\SymfonyBridge\Adapter\ContainerAdapter</parameter>
 	</parameters>
 
     <services>
