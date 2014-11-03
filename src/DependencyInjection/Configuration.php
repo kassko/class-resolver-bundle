@@ -14,7 +14,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-            ->scalarNode('container_adapter_class')->defaultValue('Kassko\SymfonyBridge\Adapter\ContainerAdapter')
+            ->scalarNode('container_adapter_class')->defaultValue('Kassko\Bundle\ClassResolverBundle\Adapter\SymfonyContainerAdapter')
         ->end();
 
         return $builder;
