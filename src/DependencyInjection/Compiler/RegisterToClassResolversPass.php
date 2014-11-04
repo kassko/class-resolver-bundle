@@ -2,10 +2,11 @@
 
 namespace Kassko\Bundle\ClassResolverBundle\DependencyInjection\Compiler;
 
+use LogicException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
-use LogicException;
+use Symfony\Component\DependencyInjection\Reference;
 
 class RegisterToClassResolversPass implements CompilerPassInterface
 {
@@ -24,30 +25,27 @@ class RegisterToClassResolversPass implements CompilerPassInterface
 
             foreach ($tagAttributes as $attributes) {
 
-                list($classResolverPrototypeId, $group) =
-                    $this->computeClassResolverId($attributes);
-
-                $classResolverId = $classResolverPrototypeId.$group;
+                list($classResolverPrototypeId, $group) = $this->computeClassResolverId($attributes);
+                $classResolverId = $this->getClassResolverIdWithGroup($classResolverPrototypeId, $group);
 
                 if ($container->hasDefinition($classResolverId)) {
 
                     $classResolverDef = $container->getDefinition($classResolverId);
                     $classResolverChainDef = $container->getDefinition(
-                        'class_resolver.chain'.$group
+                        $this->getClassResolverIdWithGroup('kassko_class_resolver.chain', $group)
                     );
                 } else {
 
-                    $classResolverDef =
-                        new DefinitionDecorator($classResolverPrototypeId);
+                    $classResolverDef = new DefinitionDecorator($classResolverPrototypeId);
                     $container->setDefinition($classResolverId, $classResolverDef);
 
-                    $classResolverChainDef = new DefinitionDecorator(
-                        $container->getParameter('class_resolver.chain.class')
-                    );
+                    $classResolverChainDef = new DefinitionDecorator('kassko_class_resolver.chain');
                     $container->setDefinition(
-                        'class_resolver.chain'.$group,
+                        $this->getClassResolverIdWithGroup('kassko_class_resolver.chain', $group),
                         $classResolverChainDef
                     );
+
+                    $classResolverChainDef->addMethodCall('add', [new Reference($classResolverId)]);
                 }
 
                 $class = $container->getDefinition($serviceId)->getClass();
@@ -58,7 +56,6 @@ class RegisterToClassResolversPass implements CompilerPassInterface
                 }
 
                 $classResolverDef->addMethodCall('registerClass', [$class, $serviceId]);
-                $classResolverChainDef->addMethodCall('add', [$classResolverDef]);
             }
         }
     }

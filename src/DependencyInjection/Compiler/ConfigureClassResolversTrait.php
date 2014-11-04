@@ -4,15 +4,15 @@ namespace Kassko\Bundle\ClassResolverBundle\DependencyInjection\Compiler;
 
 trait ConfigureClassResolversTrait
 {
-    private static $classesToRegisterTag = 'class_resolver.add';
-    private static $classesInWhichInjectTag = 'class_resolver.inject';
+    private static $classesToRegisterTag = 'kassko_class_resolver.add';
+    private static $classesInWhichInjectTag = 'kassko_class_resolver.inject';
 
     private function computeClassResolverId(array $attributes)
     {
         if (! isset($attributes['factory']) || false === $attributes['factory']) {
-            $classResolverPrototypeId = 'class_resolver.container_aware';
+            $classResolverPrototypeId = 'kassko_class_resolver.container_aware';
         } else {
-            $classResolverPrototypeId = 'class_resolver.factory';
+            $classResolverPrototypeId = 'kassko_class_resolver.factory';
         }
 
         if (! isset($attributes['group'])) {
@@ -20,5 +20,10 @@ trait ConfigureClassResolversTrait
         }
 
         return [$classResolverPrototypeId, $attributes['group']];
+    }
+
+    private function getClassResolverIdWithGroup($classResolverId, $group)
+    {
+        return $classResolverId.'.'.$group;
     }
 }

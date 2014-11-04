@@ -9,13 +9,13 @@ Configurer la classe à résoudre:
 ```yml
 
 <service id="cacheService" class="CacheClass">
-    <tag name="class_resolver.add"/> <!-- On enregistre auprès du resolveur la classe "CacheClass" et son id de service correspondant "cacheService" -->
+    <tag name="kassko_class_resolver.add"/> <!-- On enregistre auprès du resolveur la classe "CacheClass" et son id de service correspondant "cacheService" -->
 </service>
 
 <service id="clientService" class="ClientClass">
     <argument type="service" id="class_resolver"/>
 
-    <tag name="class_resolver.inject"/> <!-- On injecte le résolveur dans le service "clientService" -->
+    <tag name="kassko_class_resolver.inject"/> <!-- On injecte le résolveur dans le service "clientService" -->
 </service>
 
 ```
@@ -24,17 +24,17 @@ Configurer plusieurs classes à résoudre:
 ```yml
 
 <service id="cacheService" class="CacheClass">
-    <tag name="class_resolver.add"/> <!-- On enregistre auprès du resolveur la classe "CacheClass" et son id de service correspondant "cacheService" -->
+    <tag name="kassko_class_resolver.add"/> <!-- On enregistre auprès du resolveur la classe "CacheClass" et son id de service correspondant "cacheService" -->
 </service>
 
 <service id="listenerService" class="ListenerClass">
-    <tag name="class_resolver.add"/> <!-- On enregistre auprès du resolveur la classe "ListenerClass" et son id de service correspondant "listenerService" -->
+    <tag name="kassko_class_resolver.add"/> <!-- On enregistre auprès du resolveur la classe "ListenerClass" et son id de service correspondant "listenerService" -->
 </service>
 
 <service id="clientService" class="ClientClass">
     <argument type="service" id="class_resolver"/>
 
-    <tag name="class_resolver.inject"/> <!-- On injecte le résolveur dans le service "clientService" -->
+    <tag name="kassko_class_resolver.inject"/> <!-- On injecte le résolveur dans le service "clientService" -->
 </service>
 
 ```
@@ -48,17 +48,17 @@ L'exemple précédent peut-être réécrit de la façon suivante.
 ```yml
 
 <service id="cacheService" class="CacheClass">
-    <tag name="class_resolver.add" group="group1"/> <!-- On enregistre auprès d'un resolveur "group1" la classe "CacheClass" et son id de service correspondant "cacheService" -->
+    <tag name="kassko_class_resolver.add" group="group1"/> <!-- On enregistre auprès d'un resolveur "group1" la classe "CacheClass" et son id de service correspondant "cacheService" -->
 </service>
 
 <service id="listenerService" class="ListenerClass">
-    <tag name="class_resolver.add" group="group1"/> <!-- On enregistre auprès d'un resolveur "group1" la classe "ListenerClass" et son id de service correspondant "listenerService" -->
+    <tag name="kassko_class_resolver.add" group="group1"/> <!-- On enregistre auprès d'un resolveur "group1" la classe "ListenerClass" et son id de service correspondant "listenerService" -->
 </service>
 
 <service id="clientService" class="ClientClass">
     <argument type="service" id="class_resolver"/>
 
-    <tag name="class_resolver.inject" group="group1"/> <!-- On injecte le résolveur "group1" dans le service "clientService" -->
+    <tag name="kassko_class_resolver.inject" group="group1"/> <!-- On injecte le résolveur "group1" dans le service "clientService" -->
 </service>
 
 ```
@@ -77,12 +77,12 @@ C'est aussi pour cette raison qu'il est possible d'enregistrer plusieurs résolv
 
 <service id="mailerServiceA" class="MailerClass">
     <argument type="service" id="transportA"/>
-    <tag name="class_resolver.add" group="transportA"/>
+    <tag name="kassko_class_resolver.add" group="transportA"/>
 </service>
 
 <service id="mailerServiceB" class="MailerClass">
     <argument type="service" id="transportB"/>
-    <tag name="class_resolver.add" group="transportB"/>
+    <tag name="kassko_class_resolver.add" group="transportB"/>
 </service>
 
 <service id="clientService" class="ClientClass">
@@ -90,10 +90,10 @@ C'est aussi pour cette raison qu'il est possible d'enregistrer plusieurs résolv
     <argument type="service" id="class_resolver"/>
     <argument type="service" id="class_resolver"/>
 
-    <tag name="class_resolver.inject" group="transportA" index=0/>
+    <tag name="kassko_class_resolver.inject" group="transportA" index=0/>
     <!-- On injecte le résolveur "transportA" en tant que premier résolveur du service "clientService" -->
 
-    <tag name="class_resolver.inject" group="transportB" index=1/>
+    <tag name="kassko_class_resolver.inject" group="transportB" index=1/>
     <!-- On injecte le résolveur "transportB" en tant que second résolveur du service "clientService" -->
 </service>
 
@@ -136,12 +136,12 @@ Variante avec injection par setters.
 
 <service id="mailerServiceA" class="MailerClass">
     <argument type="service" id="transportA"/>
-    <tag name="class_resolver.add" group="transportA"/>
+    <tag name="kassko_class_resolver.add" group="transportA"/>
 </service>
 
 <service id="mailerServiceB" class="MailerClass">
     <argument type="service" id="transportB"/>
-    <tag name="class_resolver.add" group="transportB"/>
+    <tag name="kassko_class_resolver.add" group="transportB"/>
 </service>
 
 <service id="clientService" class="ClientClass">
@@ -156,8 +156,8 @@ Variante avec injection par setters.
         <argument type="service" id="class_resolver"/>
     </call>
 
-    <tag name="class_resolver.inject" group="transportA" method="setClassResolverA" index=0/>
-    <tag name="class_resolver.inject" group="transportB" method="setClassResolverB" index=2/>
+    <tag name="kassko_class_resolver.inject" group="transportA" method="setClassResolverA" index=0/>
+    <tag name="kassko_class_resolver.inject" group="transportB" method="setClassResolverB" index=2/>
 </service>
 
 ```

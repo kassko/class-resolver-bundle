@@ -41,24 +41,23 @@ class InjectClassResolversPass implements CompilerPassInterface
         Definition $serviceInWhichInjectDef,
         $serviceIdInWhichInjectDef
     ) {
-        list($classResolverId) = $this->computeClassResolverId($attributes);
+        list(, $group) = $this->computeClassResolverId($attributes);
+        $classResolverId = $this->getClassResolverIdWithGroup('kassko_class_resolver.chain', $group);
 
         $index = isset($attributes['index']) ? $attributes['index'] : 0;
 
         if (! isset($attributes['method'])) {
 
-            $serviceInWhichInjectDef->replaceArgument(
-                $index,
-                new Reference($classResolverId)
-            );
+            $serviceInWhichInjectDef->replaceArgument($index, new Reference($classResolverId));
         } else {
 
             $method = $attributes['method'];
             $calls = $serviceInWhichInjectDef->getMethodCalls();
-            foreach ($calls as $call) {
+
+            foreach ($calls as &$call) {
                 if ($method === $call[0]) {
 
-                    if (! isset($call[0][$index])) {
+                    if (! isset($call[1][$index])) {
                         throw new OutOfBoundsException(
                             sprintf(
                                 'The index attribute "%s" for tag "%s"'
@@ -70,9 +69,12 @@ class InjectClassResolversPass implements CompilerPassInterface
                             )
                         );
                     }
-                    $call[0][$index] = new Reference($classResolverId);
+                    $call[1][$index] = new Reference($classResolverId);
                 }
             }
+            unset($call);//Precaution.
+
+            $serviceInWhichInjectDef->setMethodCalls($calls);
         }
     }
 }

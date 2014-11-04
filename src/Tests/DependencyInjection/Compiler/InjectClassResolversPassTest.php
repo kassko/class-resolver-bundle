@@ -20,25 +20,25 @@ class InjectClassResolversPassTest extends \PHPUnit_Framework_TestCase
 
         //someServiceA
         $someServiceA = $container->getDefinition('some_serviceA');
-        $this->assertEquals($someServiceA->getArgument(0), 'class_resolver.chain');
+        $this->assertEquals($someServiceA->getArgument(0), 'kassko_class_resolver.chain');
 
         //someServiceB
         $this->assertTrue(
-            $container->hasDefinition('class_resolver.chain.some_group'),
+            $container->hasDefinition('kassko_class_resolver.chain.some_group'),
             '->configure pass adds a class resolver service for tagged service'
         );
 
         $someServiceB = $container->getDefinition('some_serviceB');
-        $this->assertEquals($someServiceB->getArgument(0), 'class_resolver.chain.some_group');
+        $this->assertEquals($someServiceB->getArgument(0), 'kassko_class_resolver.chain.some_group');
 
         //someServiceC
         $this->assertTrue(
-            $container->hasDefinition('class_resolver.chain.some_group'),
+            $container->hasDefinition('kassko_class_resolver.chain.some_group'),
             '->configure pass adds a class resolver service for tagged service'
         );
 
         $someServiceC = $container->getDefinition('some_serviceC');
-        $this->assertEquals($someServiceC->getArgument(1), 'class_resolver.chain.some_group');
+        $this->assertEquals($someServiceC->getArgument(1), 'kassko_class_resolver.chain.some_group');
     }
 
     private static function createContainer()
@@ -51,15 +51,15 @@ class InjectClassResolversPassTest extends \PHPUnit_Framework_TestCase
         $loader->load('services.xml');
 
         $someService = new Definition('SomeClass', [new Reference('class_resolver')]);
-        $someService->addTag('class_resolver.inject');
+        $someService->addTag('kassko_class_resolver.inject');
         $container->setDefinition('some_serviceA', $someService);
 
         $someService = new Definition('SomeClass', [new Reference('class_resolver')]);
-        $someService->addTag('class_resolver.inject', ['group' => 'some_group']);
+        $someService->addTag('kassko_class_resolver.inject', ['group' => 'some_group']);
         $container->setDefinition('some_serviceB', $someService);
 
         $someService = new Definition('SomeClass', ['argument0', new Reference('class_resolver')]);
-        $someService->addTag('class_resolver.inject', ['group' => 'some_group', 'index' => 1]);
+        $someService->addTag('kassko_class_resolver.inject', ['group' => 'some_group', 'index' => 1]);
         $container->setDefinition('some_serviceC', $someService);
 
         $container->addCompilerPass(new ConfigurePass());

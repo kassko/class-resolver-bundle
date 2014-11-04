@@ -5,24 +5,26 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-    	<parameter key="class_resolver.container_aware.class">Kassko\ClassResolver\ContainerAwareClassResolver</parameter>
-        <parameter key="class_resolver.factory.class">Kassko\ClassResolver\FactoryClassResolver</parameter>
-        <parameter key="class_resolver.chain.class">Kassko\ClassResolver\ClassResolverChain</parameter>
+
+    	<parameter key="kassko_class_resolver.container_aware.class">Kassko\ClassResolver\ContainerAwareClassResolver</parameter>
+        <parameter key="kassko_class_resolver.factory.class">Kassko\ClassResolver\FactoryClassResolver</parameter>
+        <parameter key="kassko_class_resolver.chain.class">Kassko\ClassResolver\ClassResolverChain</parameter>
+
 	</parameters>
 
     <services>
 
-        <service id="class_resolver.container_aware" class="%class_resolver.container_aware.class%" public="false">
+        <service id="kassko_class_resolver.container_aware" class="%kassko_class_resolver.container_aware.class%" public="true">
             <call method="setContainer">
-                 <argument type="service" id="class_resolver.container"/>
+                 <argument type="service" id="kassko_class_resolver.container"/>
             </call>
         </service>
 
-        <service id="class_resolver.factory" class="%class_resolver.factory.class%" public="false"/>
+        <service id="kassko_class_resolver.factory" class="%kassko_class_resolver.factory.class%" public="true"/>
 
-        <service id="class_resolver.chain" class="%class_resolver.chain.class%" public="false"/>
+        <service id="kassko_class_resolver.chain" class="%kassko_class_resolver.chain.class%" public="true"/>
 
-        <service id="class_resolver.container" class="StdClass" public="false">
+        <service id="kassko_class_resolver.container" class="StdClass" public="true">
             <argument type="service" id="service_container"/>
         </service>
 
