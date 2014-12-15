@@ -9,16 +9,9 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class InjectClassResolversPassTest extends \PHPUnit_Framework_TestCase
 {
-    private static $container;
-
-    public static function setUpBeforeClass()
-    {
-        self::$container = self::createContainer();
-    }
-
     public function testInjectClassResolverPass()
     {
-        $container = self::$container;
+        $container = $this->createContainer();
 
         //someServiceA
         $someServiceA = $container->getDefinition('some_serviceA');
@@ -43,7 +36,7 @@ class InjectClassResolversPassTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($someServiceC->getArgument(1), 'kassko_class_resolver.chain.some_group');
     }
 
-    private static function createContainer()
+    private function createContainer()
     {
         $container = new ContainerBuilder();
         $loader = new XmlFileLoader(
@@ -52,15 +45,18 @@ class InjectClassResolversPassTest extends \PHPUnit_Framework_TestCase
         );
         $loader->load('services.xml');
 
-        $someService = new Definition('SomeClass', [new Reference('class_resolver')]);
+        $someService = new Definition('SomeClass', [new Reference('class_resolver_placeholder')]);
         $someService->addTag('kassko_class_resolver.inject');
         $container->setDefinition('some_serviceA', $someService);
 
-        $someService = new Definition('SomeClass', [new Reference('class_resolver')]);
+        $someGroupClassResolver = new DefinitionDecorator('kassko_class_resolver.chain');
+        $container->setDefinition('kassko_class_resolver.chain.some_group', $someGroupClassResolver);
+
+        $someService = new Definition('SomeClass', [new Reference('class_resolver_placeholder')]);
         $someService->addTag('kassko_class_resolver.inject', ['group' => 'some_group']);
         $container->setDefinition('some_serviceB', $someService);
 
-        $someService = new Definition('SomeClass', ['argument0', new Reference('class_resolver')]);
+        $someService = new Definition('SomeClass', ['argument0', new Reference('class_resolver_placeholder')]);
         $someService->addTag('kassko_class_resolver.inject', ['group' => 'some_group', 'index' => 1]);
         $container->setDefinition('some_serviceC', $someService);
 
