@@ -5,7 +5,7 @@ class-resolver-bundle
 [![Total Downloads](https://poser.pugx.org/kassko/class-resolver-bundle/downloads.png)](https://packagist.org/packages/kassko/class-resolver-bundle)
 [![Latest Unstable Version](https://poser.pugx.org/kassko/class-resolver-bundle/v/unstable.png)](https://packagist.org/packages/kassko/class-resolver-bundle)
 
-Bundle wich integrates class-resolver into Symfony.
+Bundle which integrates class-resolver into Symfony.
 ---------------
 
 Add to your composer.json:
