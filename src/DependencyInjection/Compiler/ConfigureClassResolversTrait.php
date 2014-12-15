@@ -16,7 +16,7 @@ trait ConfigureClassResolversTrait
         }
 
         if (! isset($attributes['group'])) {
-            return [$classResolverPrototypeId, ''];
+            return [$classResolverPrototypeId, null];
         }
 
         return [$classResolverPrototypeId, $attributes['group']];
@@ -24,7 +24,7 @@ trait ConfigureClassResolversTrait
 
     private function getClassResolverIdWithGroup($classResolverId, $group)
     {
-        if (isset($group)) {
+        if (null !== $group) {
             return $classResolverId.'.'.$group;
         }
 
