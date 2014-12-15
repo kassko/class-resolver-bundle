@@ -1,6 +1,6 @@
 <?php
 
-use Kassko\Bundle\ClassResolverBundle\DependencyInjection\Compiler\ConfigurePass;
+use Kassko\Bundle\ClassResolverBundle\DependencyInjection\Compiler\InjectClassResolverPass;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
