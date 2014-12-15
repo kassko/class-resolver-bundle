@@ -14,7 +14,7 @@ class InjectClassResolversPassTest extends \PHPUnit_Framework_TestCase
         self::$container = self::createContainer();
     }
 
-    public function testBasic()
+    public function testInjectClassResolverPass()
     {
         $container = self::$container;
 
@@ -62,7 +62,7 @@ class InjectClassResolversPassTest extends \PHPUnit_Framework_TestCase
         $someService->addTag('kassko_class_resolver.inject', ['group' => 'some_group', 'index' => 1]);
         $container->setDefinition('some_serviceC', $someService);
 
-        $container->addCompilerPass(new ConfigurePass());
+        $container->addCompilerPass(new InjectClassResolverPass());
         $container->compile();
 
         return $container;

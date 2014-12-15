@@ -5,16 +5,22 @@
             "name":"Kassko"
         }
     ],
-    "description":"class-resolver integrated to Symfony.",
+    "description":"Integrate the class-resolver component to Symfony",
     "keywords":["class", "resolver", "dependency", "injection", "factory"],
     "require":{
         "php":">=5.5.0",
         "symfony/framework-bundle": "~2.5",
         "kassko/class-resolver": "~0.1@alpha"
     },
+    "require-dev":{
+        "phpunit/phpunit": "~4.4"
+    },
     "autoload":{
         "psr-4":{
             "Kassko\\Bundle\\ClassResolverBundle\\": "src"
         }
+    },
+    "config": {
+        "bin-dir": "bin"
     }
 }
