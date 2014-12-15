@@ -1,8 +1,9 @@
 <?php
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Kassko\Bundle\ClassResolverBundle\DependencyInjection\Compiler\ConfigurePass;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 class InjectClassResolversPassTest extends \PHPUnit_Framework_TestCase
