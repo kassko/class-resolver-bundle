@@ -1,6 +1,6 @@
 <?php
 
-use Kassko\Bundle\ClassResolverBundle\DependencyInjection\Compiler\InjectClassResolverPass;
+use Kassko\Bundle\ClassResolverBundle\DependencyInjection\Compiler\InjectClassResolversPass;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -64,7 +64,7 @@ class InjectClassResolversPassTest extends \PHPUnit_Framework_TestCase
         $someService->addTag('kassko_class_resolver.inject', ['group' => 'some_group', 'index' => 1]);
         $container->setDefinition('some_serviceC', $someService);
 
-        $container->addCompilerPass(new InjectClassResolverPass());
+        $container->addCompilerPass(new InjectClassResolversPass());
         $container->compile();
 
         return $container;
