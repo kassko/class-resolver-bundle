@@ -24,6 +24,10 @@ trait ConfigureClassResolversTrait
 
     private function getClassResolverIdWithGroup($classResolverId, $group)
     {
-        return $classResolverId.'.'.$group;
+        if (isset($group)) {
+            return $classResolverId.'.'.$group;
+        }
+
+        return $classResolverId;
     }
 }
