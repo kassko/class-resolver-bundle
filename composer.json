@@ -10,7 +10,7 @@
     "require":{
         "php":">=5.5.0",
         "symfony/framework-bundle": "~2.5",
-        "kassko/class-resolver": "~0.1@alpha"
+        "kassko/class-resolver": "~0.3.0@alpha"
     },
     "require-dev":{
         "phpunit/phpunit": "~4.4"
@@ -22,5 +22,10 @@
     },
     "config": {
         "bin-dir": "bin"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.3.0.x-dev"
+        }
     }
 }

@@ -13,7 +13,7 @@ Add to your composer.json:
 ```json
 
 "require": {
-    "kassko/class-resolver-bundle": "dev-master"
+    "kassko/class-resolver-bundle": "~0.3.0@alpha"
 }
 
 ```
