@@ -2,11 +2,12 @@
 
 namespace Kassko\Bundle\ClassResolverBundle\DependencyInjection\Compiler;
 
+use OutOfBoundsException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
-use OutOfBoundsException;
 
 class InjectClassResolversPass implements CompilerPassInterface
 {
@@ -48,7 +49,7 @@ class InjectClassResolversPass implements CompilerPassInterface
 
         if (! isset($attributes['method'])) {
 
-            $serviceInWhichInjectDef->replaceArgument($index, new Reference($classResolverId));
+            $serviceInWhichInjectDef->replaceArgument($index, new Reference($classResolverId, ContainerInterface::IGNORE_ON_INVALID_REFERENCE));
         } else {
 
             $method = $attributes['method'];
@@ -69,7 +70,7 @@ class InjectClassResolversPass implements CompilerPassInterface
                             )
                         );
                     }
-                    $call[1][$index] = new Reference($classResolverId);
+                    $call[1][$index] = new Reference($classResolverId, ContainerInterface::IGNORE_ON_INVALID_REFERENCE);
                 }
             }
             unset($call);//Precaution.
