@@ -24,18 +24,42 @@ class RegisterToClassResolversPass implements CompilerPassInterface
         ) {
 
             foreach ($tagAttributes as $attributes) {
+                if (isset($attributes['service'])) {
+                    if (! $container->hasDefinition($attributes['service'])) {
+                        throw new LogicException(
+                            sprintf(
+                                'The service "%s" does not exist.'
+                                . ' The definition of service "%s" has a tag "%s"'
+                                . ' and the attribute "service" of this tag contains this unexisting service.',
+                                $attributes['service'],
+                                $serviceId,
+                                self::$classesToRegisterTag
+                            )
+                        );
+                    }
+
+                    $serviceClass = $container->getDefinition($serviceId)->getClass();
+                    if (empty($serviceClass)) {
+                        throw new LogicException(
+                            sprintf('No class defined for service "%s".', $serviceId)
+                        );
+                    }
+
+                    $classResolverDef = $container->getDefinition($attributes['service']);
+                    $classResolverDef->addMethodCall('registerClass', [$serviceClass, $serviceId]);
+                    
+                    continue;
+                }
 
                 list($classResolverPrototypeId, $group) = $this->computeClassResolverId($attributes);
                 $classResolverId = $this->getClassResolverIdWithGroup($classResolverPrototypeId, $group);
 
                 if ($container->hasDefinition($classResolverId)) {
-
                     $classResolverDef = $container->getDefinition($classResolverId);
                     $classResolverChainDef = $container->getDefinition(
                         $this->getClassResolverIdWithGroup('kassko_class_resolver.chain', $group)
                     );
                 } else {
-
                     $classResolverDef = new DefinitionDecorator($classResolverPrototypeId);
                     $container->setDefinition($classResolverId, $classResolverDef);
 
@@ -48,14 +72,14 @@ class RegisterToClassResolversPass implements CompilerPassInterface
                     $classResolverChainDef->addMethodCall('add', [new Reference($classResolverId)]);
                 }
 
-                $class = $container->getDefinition($serviceId)->getClass();
-                if (empty($class)) {
+                $serviceClass = $container->getDefinition($serviceId)->getClass();
+                if (empty($serviceClass)) {
                     throw new LogicException(
-                        sprintf("No class defined for service '%s'.", $serviceId)
+                        sprintf('No class defined for service "%s".', $serviceId)
                     );
                 }
 
-                $classResolverDef->addMethodCall('registerClass', [$class, $serviceId]);
+                $classResolverDef->addMethodCall('registerClass', [$serviceClass, $serviceId]);
             }
         }
     }
