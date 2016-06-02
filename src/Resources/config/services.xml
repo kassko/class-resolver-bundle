@@ -6,29 +6,32 @@
 
     <parameters>
 
-    	<parameter key="kassko_class_resolver.container_aware.class">Kassko\ClassResolver\ContainerAwareClassResolver</parameter>
-        <parameter key="kassko_class_resolver.factory.class">Kassko\ClassResolver\FactoryClassResolver</parameter>
+        <parameter key="kassko_class_resolver.container_aware.class">Kassko\ClassResolver\ContainerAwareClassResolver</parameter>
+        <parameter key="kassko_class_resolver.map.class">Kassko\ClassResolver\MapClassResolver</parameter>
+        <parameter key="kassko_class_resolver.factory_adapter.class">Kassko\ClassResolver\FactoryAdapterClassResolver</parameter>
+        <parameter key="kassko_class_resolver.static_factory_adapter.class">Kassko\ClassResolver\StaticFactoryAdapterClassResolver</parameter>
+        <parameter key="kassko_class_resolver.default.class">Kassko\ClassResolver\DefaultClassResolver</parameter>
         <parameter key="kassko_class_resolver.chain.class">Kassko\ClassResolver\ClassResolverChain</parameter>
+        <parameter key="kassko_class_resolver.factory.class">Kassko\ClassResolver\FactoryClassResolver</parameter>
 
-	</parameters>
+    </parameters>
 
     <services>
 
-        <service id="kassko_class_resolver.container_aware" class="%kassko_class_resolver.container_aware.class%" public="true">
+        <service id="kassko_class_resolver.container_aware" class="%kassko_class_resolver.container_aware.class%">
             <call method="setContainer">
                  <argument type="service" id="kassko_class_resolver.container"/>
             </call>
         </service>
 
-        <service id="kassko_class_resolver.factory" class="%kassko_class_resolver.factory.class%" public="true"/>
-
-        <service id="kassko_class_resolver.chain" class="%kassko_class_resolver.chain.class%" public="true"/>
-
-        <service id="kassko_class_resolver.container" class="StdClass" public="true">
+        <service id="kassko_class_resolver.container" class="StdClass">
             <argument type="service" id="service_container"/>
         </service>
+
+        <service id="kassko_class_resolver.chain" class="%kassko_class_resolver.chain.class%"/>
+
+        <service id="kassko_class_resolver.factory" class="%kassko_class_resolver.factory.class%"/>
 
     </services>
 
 </container>
-
