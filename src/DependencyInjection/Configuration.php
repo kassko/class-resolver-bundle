@@ -9,8 +9,7 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder()
     {
-        $builder = new TreeBuilder();
-        $rootNode = $builder->root('kassko_class_resolver');
+        list($rootNode, $builder) = $this->getRootNode('kassko_class_resolver');
 
         $rootNode
             ->children()
@@ -116,5 +115,21 @@ class Configuration implements ConfigurationInterface
         ->end();
 
         return $builder;
+    }
+
+    private function getRootNode($rootNodeName)
+    {
+        if (method_exists(TreeBuilder::class, 'getRootNode')) {
+            $builder = new TreeBuilder($rootNodeName);
+            $rootNode = $builder->getRootNode();
+        } else {//Keep compatibility with Symfony <= 4.3
+            /**
+             * @see https://github.com/symfony/symfony/blob/4.3/src/Symfony/Component/Config/Definition/Builder/TreeBuilder.php#L48
+             */
+            $builder = new TreeBuilder;
+            $rootNode = $builder->root($rootNodeName);
+        }
+
+        return [$rootNode, $builder];
     }
 }
