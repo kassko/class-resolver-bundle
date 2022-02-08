@@ -5,7 +5,7 @@ namespace Kassko\Bundle\ClassResolverBundle\DependencyInjection\Compiler;
 use LogicException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\DefinitionDecorator;
+use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\Reference;
 
 class RegisterToClassResolversPass implements CompilerPassInterface
@@ -60,10 +60,10 @@ class RegisterToClassResolversPass implements CompilerPassInterface
                         $this->getClassResolverIdWithGroup('kassko_class_resolver.chain', $group)
                     );
                 } else {
-                    $classResolverDef = new DefinitionDecorator($classResolverPrototypeId);
+                    $classResolverDef = new ChildDefinition($classResolverPrototypeId);
                     $container->setDefinition($classResolverId, $classResolverDef);
 
-                    $classResolverChainDef = new DefinitionDecorator('kassko_class_resolver.chain');
+                    $classResolverChainDef = new ChildDefinition('kassko_class_resolver.chain');
                     $container->setDefinition(
                         $this->getClassResolverIdWithGroup('kassko_class_resolver.chain', $group),
                         $classResolverChainDef
