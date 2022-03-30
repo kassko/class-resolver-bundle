@@ -6,7 +6,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\DefinitionDecorator;
+use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
@@ -32,7 +32,7 @@ class KasskoClassResolverExtension extends Extension
         if (isset($config['resolvers'])) {
 
             foreach ($config['resolvers']['chain'] as $resolverConfig) {
-                $resolverDef = new DefinitionDecorator('kassko_class_resolver.chain');
+                $resolverDef = new ChildDefinition('kassko_class_resolver.chain');
 
                 foreach ($resolverConfig['nested_resolvers'] as $nestedResolverService) {
                     $resolverDef->addMethodCall('add', [new Reference($nestedResolverService)]);
@@ -50,7 +50,7 @@ class KasskoClassResolverExtension extends Extension
             }
 
             foreach ($config['resolvers']['container'] as $resolverConfig) {
-                $container->setDefinition($resolverConfig['resolver_service'], new DefinitionDecorator('kassko_class_resolver.container_aware'));
+                $container->setDefinition($resolverConfig['resolver_service'], new ChildDefinition('kassko_class_resolver.container_aware'));
                 $this->addAliasesByService($container, $resolverConfig['resolver_aliases'], $resolverConfig['resolver_service']);
             }
 
